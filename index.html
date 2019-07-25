@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+            Employee | list employee details
+        </title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="assets/css/style.css" media="screen" rel="stylesheet" >
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+    </head>
+    <body ng-app="app">
+        <section class="header" ng-controller="navController">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <!-- The mobile navbar-toggle button can be safely removed since you do not need it in a non-responsive implementation -->
+                        <a class="navbar-brand" href="#">Internia</a>
+                    </div>
+                    <!-- Note that the .navbar-collapse and .collapse classes have been removed from the #navbar -->
+                    <div id="navbar">
+                        <ul class="nav navbar-nav">
+                            <li ng-repeat="tab in tabs" ng-class="{'active': $index == activeTab}">
+                                <a href="#{{ tab | lowercase }}" ng-click="changeTab($index)">{{ tab }}</a>
+                            </li>
+                            <!-- <li><a href="#about">Statistic</a></li>
+                            <li><a href="#contact">Employee</a></li>
+                            <li><a href="#contact">Client</a></li>
+                            <li><a href="#contact">Equipment</a></li> -->
+                        </ul>
+                        
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">
+                                <i class="fa fa-bell"></i>
+                            </a></li>
+                            <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+                            <li><a href="#"><i class="fa fa-user"></i></a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+        </section>
+
+        <section>
+            <div class="container-fluid">
+                <div class="rows topic" ng-controller="employeeController">
+                    <div class="pull-right add">
+                        <button class="btn btn-success" ng-hide="!createEmployee" ng-click="create(true)">add employee</button>
+                        <button class="btn btn-danger" ng-hide="createEmployee" ng-click="create(false)">Cancel</button>
+                    </div>
+                    <h3>employee</h3>
+                </div>
+                <div class="rows">
+                    <div class="col-sm-4 side-nav">
+                        <div class="sidenav" ng-controller="navController">
+                            <img>
+                            <h5>All Employees</h5><br>
+                            <div ng-repeat="nav in navs">
+                                <span>{{ nav.name }}</span>
+                                <ul ng-repeat="menu in nav.menus">
+                                    <li>{{ menu.name }}</li>
+                                </ul>
+                            </div>
+                            <div class="pull-right project">
+                                <button class="btn btn-success">add project</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 main-cont" ng-controller="employeeController" ng-hide="!createEmployee">
+                        <div class="row table">
+                            <div class="col-sm-1">
+                                <input type="checkbox">
+                            </div>
+                            <div class="col-sm-3">
+                                <strong>Employee</strong>
+                            </div>
+                            <div class="col-sm-3">
+                                <strong>Salary</strong>
+                            </div>
+                            <div class="col-sm-3">
+                                <strong>Status</strong>
+                            </div>
+                            <div class="col-sm-2">
+                                <strong>Manage</strong>
+                            </div>
+                        </div>
+
+                        <!-- start employee details -->
+                        <div class="row table employee" ng-repeat="employee in employees">
+                            <div class="col-sm-1">
+                                <input type="checkbox">
+                            </div>
+                            <div class="col-sm-3">
+                                <span class="title">{{ employee.name }}</span><br>
+                                <span class="helper">{{ employee.position }}</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <span class="title">{{ employee.salary }}</span><br>
+                                <span class="helper"># {{ employee.job_description }}</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <span class="title">{{ employee.status }}</span><br>
+                                <span class="helper">{{ employee.duration }}</span>
+                            </div>
+                            <div class="col-sm-2">
+                                <i class="fa fa-pencil"></i> &nbsp; 
+                                <i class="fa fa-trash" ng-click="remove(employee)"></i>
+                            </div>
+                        </div>
+                        <!-- end employee details -->
+                    </div>
+
+                    <div class="col-sm-8 main-cont" ng-controller="employeeController" ng-hide="createEmployee">
+                        <form class="">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="">Name</label>
+                                    <input type="text" ng-model="employee.name" class="form-control">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="">Position</label>
+                                    <input type="text" ng-model="employee.position" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="">Salary</label>
+                                    <input type="text"  ng-model="employee.salary" class="form-control">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="">Job Title</label>
+                                    <input type="text" ng-model="employee.job_description" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label for="">Status</label>
+                                    <input type="text" ng-model="employee.status" class="form-control">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="">Duration</label>
+                                    <input type="text" ng-model="employee.duration" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button ng-click="addEmployee()" class="btn btn-success btn-lg">
+                                    save
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <script src="assets/js/script.js"></script>
+    </body>
+</html>

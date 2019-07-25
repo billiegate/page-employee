@@ -1,0 +1,118 @@
+html, body, ul, li {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    background-color: #f8f5f1
+}
+
+.navbar{
+    /* padding: 20px 10px */
+    background-color: #fff
+}
+
+.navbar-header{
+    width: 300px
+}
+
+.navbar-header{
+    padding: 10px 30px;
+}
+
+.nav.navbar-nav li a{
+    padding: 25px 30px;
+}
+
+.nav.navbar-nav.navbar-right li a{
+    padding: 25px 10px;
+}
+
+.nav.navbar-nav li.active a{
+    background-color: transparent !important;
+    border-bottom: 3px solid rgb(16, 206, 117)
+}
+
+.topic h3 {
+    padding: 10px 50px ;
+}
+
+.btn {
+    border-radius: 25px;
+    padding: 7px 25px
+}
+
+.topic .add{
+    padding-right: 70px
+}
+
+.side-nav{
+    padding: 5px 40px
+}
+
+.main-cont{
+    padding-right: 50px
+}
+
+.project .btn {
+    bottom: -20px;
+    right: 84px;
+    position: absolute;
+    background-color: rgb(133, 37, 146);
+    border: none
+}
+
+.sidenav {
+    position: relative;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 25px 20px;
+    padding-bottom: 50px
+}
+
+.sidenav span {
+    color: #ddd;
+    font-size: 12px
+}
+
+.sidenav ul li {
+    list-style: none;
+    padding: 14px 3px;
+    font-size: 14px
+}
+
+.table{
+    padding: 10px 25px;
+    margin: 2px;
+    margin-bottom: 10px;
+}
+
+.employee {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 150px #eeebe7
+}
+
+.employee:hover {
+    box-shadow: 0px 0px 30px #d8d3ce
+}
+
+.employee .title {
+    font-weight: bold;
+}
+
+.employee .helper {
+    color: #999;
+    font-size: 11px
+}
+
+.employee i {
+    font-size: 14px;
+    padding: 5px 7px;
+    color: #bbb;
+    cursor: pointer;
+}
+
+.employee i:hover {
+    color: #f00
+}
