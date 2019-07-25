@@ -34,6 +34,7 @@ app.controller('employeeController', function($scope, $http){
 
     $scope.employees = [
         {
+            id: 0,
             name: 'Afolabi Tope Emmanuel',
             position: 'Senior Dev',
             salary: '300k',
@@ -60,11 +61,12 @@ app.controller('employeeController', function($scope, $http){
         }
         $scope.employee.id = $scope.employees.length + 1;
         $scope.employees.push($scope.employee);
+        console.log($scope.employees);
     }
 
     $scope.remove = (employee) => {
         $scope.employees = $scope.employees.filter( _employee => {
-            return _employee.name != employee.name
+            return _employee.id != employee.id
         })
     }
 
@@ -88,29 +90,32 @@ app.controller('employeeController', function($scope, $http){
         let users = res.data.slice(0, 7);
         users.forEach( (user, i) => {
             $http.get(user.url).then( _user => {
-                users[i]['nurl'] = _user.data;
+                user.nurl = _user.data;
+                $scope.employees.push(
+                    {
+                        id: user.id,
+                        name: user.nurl.name,
+                        position: user.nurl.company, //user.nurl.bio,
+                        salary: user.nurl.followers,
+                        job_description: user.nurl.company,
+                        status: new Date(new Date() - new Date(user.nurl.updated_at.split('T')[0])).getFullYear() - 1970 > 3 ? 'Part Time' : 'Full Time',
+                        duration: new Date(new Date() - new Date(user.nurl.created_at.split('T')[0])).getFullYear() - 1970 + 'yrs'
+                    }
+                )
             });
+        
+            // $scope.employees = users.map( (user) => {
+                // return {
+                //     name: user.nurl.name,
+                //     position: user.nurl.bio,
+                //     salary: user.nurl.follower,
+                //     job_description: user.nurl.company,
+                //     status: new Date(new Date() - new Date(user.nurl.updated_at.split('T')[0])).getFullYear() - 1970 > 3 ? 'Part Time' : 'Full Time',
+                //     duration: new Date(new Date() - new Date(user.nurl.created_at.split('T')[0])).getFullYear() - 1970
+                // }
+            // })
         });
-        $scope.employees = users.map( (user) => {
-            console.log(user['nurl']);
-            return {
-                name: 'Afolabi Tope Emmanuel',
-                position: 'Senior Dev',
-                salary: '300k',
-                job_description: 'Frontend Developer',
-                status: 'Part time',
-                duration: '2yrs'
-            }
-            // return {
-            //     name: user.nurl.name,
-            //     position: user.nurl.bio,
-            //     salary: user.nurl.follower,
-            //     job_description: user.nurl.company,
-            //     status: new Date(new Date() - new Date(user.nurl.updated_at.split('T')[0])).getFullYear() - 1970 > 3 ? 'Part Time' : 'Full Time',
-            //     duration: new Date(new Date() - new Date(user.nurl.created_at.split('T')[0])).getFullYear() - 1970
-            // }
-        })
-        console.log($scope.employees);
+        
     });
 
     
