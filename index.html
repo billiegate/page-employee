@@ -38,7 +38,12 @@
                                 <i class="fa fa-bell"></i>
                             </a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-                            <li><a href="#"><i class="fa fa-user"></i></a></li>
+                            <li>
+                                <a href="#">
+                                    <img src="https://avatars0.githubusercontent.com/u/1?v=4" class="avatar">
+                                <!-- <i class="fa fa-user"></i> -->
+                                </a>
+                            </li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -46,8 +51,8 @@
         </section>
 
         <section>
-            <div class="container-fluid">
-                <div class="rows topic" ng-controller="employeeController">
+            <div class="container-fluid" ng-controller="employeeController">
+                <div class="rows topic">
                     <div class="pull-right add">
                         <button class="btn btn-success" ng-hide="!createEmployee" ng-click="create(true)">add employee</button>
                         <button class="btn btn-danger" ng-hide="createEmployee" ng-click="create(false)">Cancel</button>
@@ -70,18 +75,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-8 main-cont" ng-controller="employeeController" ng-hide="!createEmployee">
+                    <div class="col-sm-8 main-cont" ng-hide="!createEmployee">
                         <div class="row table">
                             <div class="col-sm-1">
                                 <input type="checkbox">
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <strong>Employee</strong>
                             </div>
                             <div class="col-sm-3">
                                 <strong>Salary</strong>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <strong>Status</strong>
                             </div>
                             <div class="col-sm-2">
@@ -94,56 +99,73 @@
                             <div class="col-sm-1">
                                 <input type="checkbox">
                             </div>
-                            <div class="col-sm-3">
-                                <span class="title">{{ employee.name }}</span><br>
-                                <span class="helper">{{ employee.position }}</span>
+                            <div class="col-sm-4 row">
+                                <div class="avatar-cont222 col-sm-3">
+                                    <img ng-scr="{{ employee.image }}" alt="{{ employee.image }}" class="avatar">
+                                    <!-- <img src="https://avatars0.githubusercontent.com/u/1?v=4" class="avatar"> -->
+                                </div>
+                                <div class="avatar-cont222 col-sm-9">
+                                    <span class="title"><a href="{{ employee.link }}">{{ employee.name }}</a></span><br>
+                                    <span class="helper">{{ employee.position }}</span>
+                                </div>
+                                
                             </div>
                             <div class="col-sm-3">
                                 <span class="title">{{ employee.salary | currency }}</span><br>
                                 <span class="helper"># {{ employee.job_description }}</span>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <span class="title">{{ employee.status }}</span><br>
-                                <span class="helper">{{ employee.duration }}</span>
+                                <span class="helper">{{ employee.duration }} {{ employee.duration == 1 ? 'yr' : 'yrs'}}</span>
                             </div>
                             <div class="col-sm-2">
-                                <i class="fa fa-pencil"></i> &nbsp; 
+                                <i class="fa fa-pencil" ng-click="edit(employee)"></i> &nbsp; 
                                 <i class="fa fa-trash" ng-click="remove(employee)"></i>
                             </div>
                         </div>
                         <!-- end employee details -->
+
+                        <div class="loader" ng-show="loading">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </div>
                     </div>
 
-                    <div class="col-sm-8 main-cont" ng-controller="employeeController" >
+                    <div class="col-sm-8 main-cont" ng-hide="createEmployee" >
                         <form class="">
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label for="">Name</label>
                                     <input type="text" ng-model="employee.name" class="form-control">
+                                    <span class="helper-error" ng-show="errors.name">{{ errors.name }}</span>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="">Position</label>
                                     <input type="text" ng-model="employee.position" class="form-control">
+                                    <span class="helper-error" ng-show="errors.position">{{ errors.position }}</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label for="">Salary</label>
                                     <input type="number"  ng-model="employee.salary" class="form-control">
+                                    <span class="helper-error" ng-show="errors.salary">{{ errors.salary }}</span>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="">Job Title</label>
                                     <input type="text" ng-model="employee.job_description" class="form-control">
+                                    <span class="helper-error" ng-show="errors.job_description">{{ errors.job_description }}</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label for="">Status</label>
                                     <input type="text" ng-model="employee.status" class="form-control">
+                                    <span class="helper-error" ng-show="errors.status">{{ errors.status }}</span>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="">Duration</label>
                                     <input type="number" ng-model="employee.duration" class="form-control">
+                                    <span class="helper-error" ng-show="errors.duration">{{ errors.duration }}</span>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -28,6 +28,10 @@ body {
     padding: 25px 10px;
 }
 
+.nav.navbar-nav.navbar-right li img{
+    margin-top: -8px
+}
+
 .nav.navbar-nav li.active a{
     background-color: transparent !important;
     border-bottom: 3px solid rgb(16, 206, 117)
@@ -115,4 +119,28 @@ body {
 
 .employee i:hover {
     color: #f00
+}
+
+.avatar-cont {
+    display: inline;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%
+}
+
+.loader{
+    text-align: center;
+    padding: 20px
+}
+
+.loader i{
+    font-size: 18px
+}
+
+.helper-error{
+    color: rgb(196, 15, 15);
+    font-size: 12px
 }
